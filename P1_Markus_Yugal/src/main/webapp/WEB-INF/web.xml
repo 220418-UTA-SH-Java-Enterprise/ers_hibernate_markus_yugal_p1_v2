@@ -4,7 +4,7 @@
              http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <display-name>Hello, Servlets!</display-name>
+    <display-name>Hello, Employees!</display-name>
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
@@ -17,8 +17,8 @@
     </context-param>
 
     <servlet>
-        <servlet-name>Employee</servlet-name>
-        <servlet-class>com.revature.models.Employee</servlet-class>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <servlet-class>com.revature.servlets.EmployeeServlet</servlet-class>
         <!-- ServletConfig is unique to 1 servlet only -->
         <init-param>
             <param-name>someParam</param-name>
@@ -29,7 +29,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Employee</servlet-name>
+        <servlet-name>EmployeeServlet</servlet-name>
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
