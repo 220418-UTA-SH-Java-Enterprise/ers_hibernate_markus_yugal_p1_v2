@@ -1,14 +1,10 @@
 package com.revature.drivers;
 
-import org.hibernate.cfg.annotations.*;
-
-import com.fasterxml.classmate.AnnotationConfiguration;
+import com.revature.dao.LoginDao;
 
 public class ReimbursementDriver {
 
 	public static void main(String[] args) {
-		
-		
 
 	}
 
