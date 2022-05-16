@@ -2,67 +2,52 @@ package com.revature.models;
 
 import javax.persistence.*;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 @Entity
-@Table(name="User")
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Table(name="store_users")
+public class User {
 
-public class User{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@Column(name="store_user_id")
 	private int id;
 	
-	@Column(name="user_username")
+	@Column(name="store_user_username")
 	private String username;
 	
-	@Column(name="user_password")
+	@Column(name="store_user_password")
 	private String password;
 	
-	@Column(name="user_firstname")
+	@Column(name="store_user_firstname")
 	private String firstName;
 	
-	@Column(name="user_lastname")
+	@Column(name="store_user_lastname")
 	private String lastName;
 	
-	@Column(name="user_email")
-	private String email;
+	@ManyToOne
+	@JoinColumn(name="store_user_role_id", referencedColumnName = "store_userRole_id")
+	private UserRole role;
 	
-	@Column(name="user_role_id")
-	private int role_id;
-
 	public User() {
 		super();
-		
 	}
 
-	public User(String username, String password, String firstName, String lastName, String email, int role_id) {
+	public User(String username, String password, String firstName, String lastName, UserRole role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
-		this.role_id = role_id;
+		this.role = role;
 	}
 
-	public User(int id, String username, String password, String firstName, String lastName, String email,
-			int role_id) {
+	public User(int id, String username, String password, String firstName, String lastName, UserRole role) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
-		this.role_id = role_id;
+		this.role = role;
 	}
 
 	public int getId() {
@@ -105,32 +90,69 @@ public class User{
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public UserRole getRole() {
+		return role;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 
-	public int getRole_id() {
-		return role_id;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
 
-	public void setRole_id(int role_id) {
-		this.role_id = role_id;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (id != other.id)
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", role_id=" + role_id + "]";
+				+ ", lastName=" + lastName + ", role=" + role + "]";
 	}
-
-
-
-
-
-
-
 }
