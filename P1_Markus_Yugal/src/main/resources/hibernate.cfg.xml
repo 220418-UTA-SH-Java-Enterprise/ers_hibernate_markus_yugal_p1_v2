@@ -8,9 +8,9 @@
   
         <!-- Connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">Feg5!dfger</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://database-1.cc4aafduqxf1.us-east-1.rds.amazonaws.com/database7</property>
+        <property name="hibernate.connection.username">postgres7</property>
+        <property name="hibernate.connection.password">zUsdaq-9zafso-xuscog</property>
   
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
