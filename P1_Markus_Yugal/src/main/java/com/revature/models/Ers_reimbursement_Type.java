@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name="Ers_Reimbursemen_type")
+@Table(name="Ers_Reimbursement_type")
 public class Ers_reimbursement_Type {
 
 	@Id

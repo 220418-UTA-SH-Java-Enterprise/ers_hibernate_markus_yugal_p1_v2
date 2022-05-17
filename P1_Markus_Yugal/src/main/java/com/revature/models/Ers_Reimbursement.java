@@ -46,6 +46,14 @@ public class Ers_Reimbursement {
 	@ManyToOne
 	@JoinColumn(name="reimb_Status_id", referencedColumnName = "reimb_statusid")
 	private Ers_reimbursement_Status reimbursementstatus;
+	
+	@ManyToOne
+	@JoinColumn(name="reimb_author", referencedColumnName = "ers_user_id")
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name="reimb_resolver", referencedColumnName = "ers_user_id")
+	private User user2;
 
 	public Ers_Reimbursement() {
 		super();
