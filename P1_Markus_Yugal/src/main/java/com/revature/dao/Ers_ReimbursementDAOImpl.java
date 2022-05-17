@@ -87,7 +87,7 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 	@Override
 	public List<Ers_Reimbursement> selectAll() {
 		
-Session ses = HibernateUtil.getSession();
+		Session ses = HibernateUtil.getSession();
 		
 		List<Ers_Reimbursement> reimbList = ses.createQuery("FROM Ers_Reimbursement ORDER BY id", Ers_Reimbursement.class).list();
 		
@@ -110,7 +110,7 @@ Session ses = HibernateUtil.getSession();
 
 	@Override
 	public Ers_Reimbursement selectByName(String name) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
