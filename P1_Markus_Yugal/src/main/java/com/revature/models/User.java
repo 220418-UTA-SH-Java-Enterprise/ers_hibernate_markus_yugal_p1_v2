@@ -3,28 +3,28 @@ package com.revature.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="store_users")
+@Table(name="ers_users")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="store_user_id")
+	@Column(name="ers_user_id")
 	private int id;
 	
-	@Column(name="store_user_username")
+	@Column(name="ers_user_username")
 	private String username;
 	
-	@Column(name="store_user_password")
+	@Column(name="ers_user_password")
 	private String password;
 	
-	@Column(name="store_user_firstname")
+	@Column(name="ers_user_firstname")
 	private String firstName;
 	
-	@Column(name="store_user_lastname")
+	@Column(name="ers_user_lastname")
 	private String lastName;
 	
 	@ManyToOne
-	@JoinColumn(name="store_user_role_id", referencedColumnName = "store_userRole_id")
+	@JoinColumn(name="ers_user_role_id", referencedColumnName = "ers_userRole_id")
 	private UserRole role;
 	
 	public User() {
