@@ -28,7 +28,7 @@ public class Userdaoimpl implements UserDAO{
 	public UserRole getUserRoleById(int id, Session ses) {
 		log.info("get role by id. id: " + id);
 		
-		UserRole role = (UserRole) ses.createNativeQuery("SELECT * FROM store_userRoles WHERE store_userRole_id=" + id + "", UserRole.class).getSingleResult();
+		UserRole role = (UserRole) ses.createNativeQuery("SELECT * FROM ers_userRoles WHERE ers_userRole_id=" + id + "", UserRole.class).getSingleResult();
 		
 		return role;
 	}
@@ -65,7 +65,7 @@ public class Userdaoimpl implements UserDAO{
 	public User selectById(int id) {
 		System.out.println("searching user by id: " + id);
 		Session ses = HibernateUtil.getSession();
-		User user = (User) ses.createNativeQuery("SELECT * FROM store_users WHERE store_user_id = " + id + "", User.class).getSingleResult();
+		User user = (User) ses.createNativeQuery("SELECT * FROM ers_users WHERE ers_user_id = " + id + "", User.class).getSingleResult();
 		
 		System.out.println("Search complete! Found: " + user);
 		
@@ -76,7 +76,7 @@ public class Userdaoimpl implements UserDAO{
 	public User selectByName(String name) {
 		System.out.println("searching user by name: " + name);
 		Session ses = HibernateUtil.getSession();
-		User user = (User) ses.createNativeQuery("SELECT * FROM store_users WHERE store_user_firstname = '" + name + "'", User.class).getSingleResult();
+		User user = (User) ses.createNativeQuery("SELECT * FROM ers_users WHERE ers_user_firstname = '" + name + "'", User.class).getSingleResult();
 		
 		System.out.println("Search complete! Found: " + user);
 		
@@ -103,7 +103,7 @@ public class Userdaoimpl implements UserDAO{
 		ses.clear();
 		
 		//ses.update(user);
-		String sql = String.format("update store_users set store_user_username='%s', store_user_password='%s', store_user_firstname='%s', store_user_lastname='%s' where store_user_id=%d", user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getId());
+		String sql = String.format("update ers_users set ers_user_username='%s', ers_user_password='%s', ers_user_firstname='%s', ers_user_lastname='%s' where ers_user_id=%d", user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getId());
 		ses.createNativeQuery(sql, User.class).executeUpdate();
 		tx.commit();
 		
