@@ -23,6 +23,9 @@ public class User {
 	@Column(name="ers_user_lastname")
 	private String lastName;
 	
+	@Column(name="user_email")
+	private String email;
+	
 	@ManyToOne
 	@JoinColumn(name="ers_user_role_id", referencedColumnName = "ers_userRole_id")
 	private UserRole role;
@@ -31,22 +34,24 @@ public class User {
 		super();
 	}
 
-	public User(String username, String password, String firstName, String lastName, UserRole role) {
+	public User(String username, String password, String firstName, String lastName, String email, UserRole role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
 		this.role = role;
 	}
 
-	public User(int id, String username, String password, String firstName, String lastName, UserRole role) {
+	public User(int id, String username, String password, String firstName, String lastName, String email, UserRole role) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
 		this.role = role;
 	}
 
@@ -89,6 +94,14 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public UserRole getRole() {
 		return role;
@@ -108,6 +121,7 @@ public class User {
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		return result;
 	}
 
@@ -147,12 +161,18 @@ public class User {
 				return false;
 		} else if (!username.equals(other.username))
 			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", role=" + role + "]";
+				+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + "]";
 	}
+
+	
 }
