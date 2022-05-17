@@ -209,6 +209,7 @@ public class RequestHelper {
 		String password = values.get(1); // pass
 		String firstname = values.get(2);
 		String lastname = values.get(3);
+		String email = values.get(4);
 		//by default, all users will be automatically registered as employee and not manager
 		//UserRole role = new UserRole(1, "employee");
 		//User u = new User(username, password, firstname, lastname, role);
@@ -218,7 +219,7 @@ public class RequestHelper {
 		String roleName = values.get(5);
 		UserRole role = new UserRole(roleId, roleName);
 		
-		User u = new User(username, password, firstname, lastname, role);
+		User u = new User(username, password, firstname, lastname, email, role);
 		
 		
 		int targetId = userv.register(u);
