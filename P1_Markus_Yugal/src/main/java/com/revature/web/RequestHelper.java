@@ -280,7 +280,9 @@ public class RequestHelper {
 		  
 		  String reimb_receipt = "Amount of reimbursement: " + reimb_amount + "for: " + reimb_description + "at: " + reimb_submitted;
 		  
-		  User u = new User();
+		  
+		  
+		 
 		
 		Ers_Reimbursement e = new Ers_Reimbursement(reimb_amount, reimb_description);
 		
