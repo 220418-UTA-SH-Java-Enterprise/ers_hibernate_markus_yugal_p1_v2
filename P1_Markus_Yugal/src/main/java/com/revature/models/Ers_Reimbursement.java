@@ -1,5 +1,12 @@
 package com.revature.models;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -58,6 +65,16 @@ public class Ers_Reimbursement {
 	public Ers_Reimbursement() {
 		super();
 	}
+	
+	
+
+	public Ers_Reimbursement(double reimb_amount, String reimb_description) {
+		super();
+		this.reimb_amount = reimb_amount;
+		this.reimb_description = reimb_description;
+	}
+
+
 
 	public Ers_Reimbursement(double reimb_amount, Timestamp reimb_submitted, Timestamp reimb_resolved,
 			String reimb_description, String reimb_receipt, int reimb_author, int reimb_resolver, int reimb_statusid,

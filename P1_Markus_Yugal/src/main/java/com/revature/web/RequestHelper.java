@@ -3,6 +3,8 @@ package com.revature.web;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -25,6 +27,11 @@ import com.revature.models.UserRole;
 import com.revature.services.JwtService;
 import com.revature.services.UserService;
 import com.revature.services.UserServiceimpl;
+import com.revature.models.Ers_Reimbursement;
+import com.revature.dao.Ers_ReimbursementDAOImpl;
+import com.revature.services.Ers_ReimbursementService;
+import com.revature.services.Ers_ReimbursementServiceImpl;
+
 
 /*
  * This class will serve as the main driver for all requests coming from the FrontController!
@@ -35,6 +42,7 @@ public class RequestHelper {
 	private static JwtService jwtService = new JwtService();
 	private static Logger log = Logger.getLogger(RequestHelper.class);
 	private static ObjectMapper om = new ObjectMapper();
+	private static Ers_ReimbursementService ersServe = new Ers_ReimbursementServiceImpl(new Ers_ReimbursementDAOImpl());
 
 	/****************************
 	 * 		POST METHODS		
@@ -215,8 +223,8 @@ public class RequestHelper {
 		//User u = new User(username, password, firstname, lastname, role);
 		
 		//alternatively if we want to register managers and employees
-		int roleId = Integer.parseInt(values.get(4));
-		String roleName = values.get(5);
+		int roleId = Integer.parseInt(values.get(5));
+		String roleName = values.get(6);
 		UserRole role = new UserRole(roleId, roleName);
 		
 		User u = new User(username, password, firstname, lastname, email, role);
@@ -229,6 +237,61 @@ public class RequestHelper {
 			u.setId(targetId);
 			log.info("New user: " + u);
 			String json = om.writeValueAsString(u);
+			pw.println(json);
+			System.out.println("JSON:\n" + json);
+			
+			response.setContentType("application/json");
+			response.setStatus(200); // SUCCESSFUL!
+			log.info("User has successfully been created.");
+		} else {
+			response.setContentType("application/json");
+			response.setStatus(204); // this means that the connection was successful but no user created!
+		}
+		log.info("leaving request helper now...");
+	}
+	
+	public static void processReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		log.info("inside of request helper...processReimbursement...");
+		BufferedReader reader = request.getReader();
+		StringBuilder s = new StringBuilder();
+
+		// we are just transferring our Reader data to our StringBuilder, line by line
+		String line = reader.readLine();
+		while (line != null) {
+			s.append(line);
+			line = reader.readLine();
+		}
+
+		String body = s.toString(); 
+		String [] sepByAmp = body.split("&"); 
+		
+		List<String> values = new ArrayList<String>();
+		
+		for (String pair : sepByAmp) { // each element in array looks like this
+			values.add(pair.substring(pair.indexOf("=") + 1)); // trim each String element in the array to just value > 
+		}
+		log.info("User attempted to register with information:\n " + body);
+		// capture the actual username and password values
+		double reimb_amount  = Double.parseDouble(values.get(0));
+		String reimb_description = values.get(1);
+		Date date = new Date(0);
+		  Timestamp reimb_submitted = new Timestamp(date.getTime());
+		  Timestamp reimb_resolved = new Timestamp(date.getTime());
+		  
+		  String reimb_receipt = "Amount of reimbursement: " + reimb_amount + "for: " + reimb_description + "at: " + reimb_submitted;
+		  
+		  User u = new User();
+		
+		Ers_Reimbursement e = new Ers_Reimbursement(reimb_amount, reimb_description);
+		
+		
+		int targetId = ersServe.addReimbursement(e);
+
+		if (targetId != 0) {
+			PrintWriter pw = response.getWriter();
+			e.setReimb_id(targetId);
+			log.info("New reimbursement: " + e);
+			String json = om.writeValueAsString(e);
 			pw.println(json);
 			System.out.println("JSON:\n" + json);
 			

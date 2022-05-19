@@ -42,6 +42,7 @@ public class FrontController extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// save the URI and rewrite it to determine what functionality the user is requesting based on URL
 		final String URI = request.getRequestURI().replace("/P1_Markus_Yugal/", "");
+		log.info("User URI is: " + URI);
 		
 		switch(URI) {
 		//TODO: use register method here
@@ -52,6 +53,10 @@ public class FrontController extends HttpServlet{
 		case "register": 
 			log.info("registering new user...");
 			RequestHelper.processRegistration(request, response);
+			break;
+		case "reimbursement":
+			log.info("adding new reimbursement request...");
+			RequestHelper.processReimbursement(request, response);
 			break;
 		default:
 			log.info("showing error message...");

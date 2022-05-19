@@ -12,7 +12,7 @@ public class Ers_reimbursement_Status {
 	@Column(name="reimb_statusid")
 	private int reimb_status_id;
 	
-	@Column(name="reimb_status", unique = true, nullable = false)
+	@Column(name="reimb_status", unique = true, nullable = true)
 	private String reimb_status;
 
 	public Ers_reimbursement_Status() {
