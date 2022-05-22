@@ -13,7 +13,7 @@ public class Ers_reimbursement_Type {
 	@Column(name="reimb_typeid")
 	private int reimb_type_id;
 	
-	@Column(name="reimb_type", unique = true, nullable = true)
+	@Column(name="reimb_type", nullable = true)
 	private String reimb_type;
 
 	public Ers_reimbursement_Type() {

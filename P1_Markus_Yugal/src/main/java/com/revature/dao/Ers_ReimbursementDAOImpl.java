@@ -1,5 +1,7 @@
 package com.revature.dao;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -23,10 +25,10 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 	
 	private static Logger log = Logger.getLogger(Userdaoimpl.class);
 
-	public int insertType(Ers_reimbursement_Type ers_reimbursement_type, Session ses, Transaction tx) {
-		log.info("adding type to database. reimbursement type: " + ers_reimbursement_type);
+	public int insertType(String reimb_type, Session ses, Transaction tx) {
+		log.info("adding type to database. reimbursement type: " + reimb_type);
 		
-		int typeid = (int) ses.save(ers_reimbursement_type);
+		int typeid = (int) ses.save(reimb_type);
 		
 		tx.commit();
 		
@@ -34,41 +36,46 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 		return typeid;
 	}
 	
-	public Ers_reimbursement_Type getReimTypeById(int id, Session ses) {
-		log.info("get type by id. id: " + id);
+	//public String getReimTypeById(int id, Session ses) {
+		//log.info("get type by id. id: " + id);
 		
-		Ers_reimbursement_Type type = (Ers_reimbursement_Type) ses.createNativeQuery("SELECT * FROM Ers_Reimbursement_type WHERE reimb_typeid=" + id + "", Ers_reimbursement_Type.class).getSingleResult();
+		//String type = (String) ses.createNativeQuery("SELECT * FROM Ers_Reimbursement_type WHERE reimb_typeid=" + id + "", Ers_reimbursement_Type.class).getSingleResult();
 		
-		return type;
-	}
+		//return type;
+	//}
 	
 	@Override
-	public int insert(Ers_Reimbursement ers_reimbursement) {
+	public boolean insert(Ers_Reimbursement ers) {
 
-	log.info("adding user to database. user info: " + ers_reimbursement);
-		
+		System.out.println("New reimbursement info: " + ers);
 		Session ses = HibernateUtil.getSession();
-		
 		Transaction tx = ses.beginTransaction();
-		int typeid = 0;
-		try {
-			typeid = insertType(ers_reimbursement.getReimbursementtype(), ses, tx);
-		}catch(ConstraintViolationException e){
-			log.info("This role already exist in database");
-			tx.rollback();
-			typeid = ers_reimbursement.getReimbursementtype().getReimb_type_id();
-		}
-		//ses.clear();
-		Ers_reimbursement_Type type = getReimTypeById(typeid, ses);
-		Transaction tx2 = ses.beginTransaction();
-		ers_reimbursement.setReimbursementtype(type);
+		ses.clear();
 		
-		int pk = (int) ses.save(ers_reimbursement);
+		double reimb_amount = ers.getReimb_amount();
+		Timestamp reimb_submitted = ers.getReimb_submitted();
+		Timestamp reimb_resolved = ers.getReimb_resolved();
+		String reimb_description = ers.getReimb_description();
+		String reimb_receipt = ers.getReimb_receipt();
+		String reimb_author = ers.getReimb_author();
+		String reimb_resolver = ers.getReimb_resolver();
+		int reimb_statusid = ers.getReimb_statusid();
+		int reimb_type_id = ers.getReimb_id();
+		String reimb_type = ers.getReimb_type();
 		
-		tx2.commit();
-		log.info("Insert successful! New user id is " + pk);
+		//ses.update(user);
+		String sql = "insert into Ers_Reimbursement (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_receipt, reimb_author, reimb_resolver, reimb_statusid, reimb_type_id, reimb_type) values (" + reimb_amount + "," + reimb_submitted + "," + reimb_resolved + "," + reimb_description + "," + reimb_receipt + "," + reimb_author + "," + reimb_resolver + "," + reimb_statusid + "," + reimb_type_id + "," + reimb_type + ")";
+		ses.createNativeQuery(sql, Ers_Reimbursement.class)
+		.setParameter(0, 0)
+		.setParameter(0, 0)
+		.executeUpdate();
+		tx.commit();
 		
-		return pk;
+		System.out.println("Reimbursement complete!");
+		
+		return true;
+		
+		
 	}
 
 	@Override
@@ -112,6 +119,12 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 	public Ers_Reimbursement selectByName(String name) {
 
 		return null;
+	}
+
+	@Override
+	public int insert(String reimb_type) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

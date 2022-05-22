@@ -28,6 +28,8 @@ import com.revature.services.JwtService;
 import com.revature.services.UserService;
 import com.revature.services.UserServiceimpl;
 import com.revature.models.Ers_Reimbursement;
+import com.revature.models.Ers_reimbursement_Status;
+import com.revature.models.Ers_reimbursement_Type;
 import com.revature.dao.Ers_ReimbursementDAOImpl;
 import com.revature.services.Ers_ReimbursementService;
 import com.revature.services.Ers_ReimbursementServiceImpl;
@@ -270,28 +272,54 @@ public class RequestHelper {
 		for (String pair : sepByAmp) { // each element in array looks like this
 			values.add(pair.substring(pair.indexOf("=") + 1)); // trim each String element in the array to just value > 
 		}
-		log.info("User attempted to register with information:\n " + body);
+		log.info("User attempted to add a reimbursement:\n " + body);
 		// capture the actual username and password values
 		double reimb_amount  = Double.parseDouble(values.get(0));
 		String reimb_description = values.get(1);
-		Date date = new Date(0);
+		Date date = new Date(2);
 		  Timestamp reimb_submitted = new Timestamp(date.getTime());
 		  Timestamp reimb_resolved = new Timestamp(date.getTime());
 		  
-		  String reimb_receipt = "Amount of reimbursement: " + reimb_amount + "for: " + reimb_description + "at: " + reimb_submitted;
-		  
-		  
-		  
+		 String reimb_receipt = "Amount of reimbursement " + reimb_amount + "for " + reimb_description + "at " + reimb_submitted;
 		 
+		  String reimb_author = values.get(3);
+		  
+		  String reimb_resolver = values.get(4);
+		  
+		  int reimb_statusid = Integer.parseInt(values.get(5));
+		  int reimb_type_id = Integer.parseInt(values.get(6));
+		  
+		    
+		  
+		  
+		  
+		 String reimb_type = values.get(6);
+		  
+		  
 		
-		Ers_Reimbursement e = new Ers_Reimbursement(reimb_amount, reimb_description);
+		Ers_Reimbursement e = new Ers_Reimbursement(reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_receipt, reimb_author, reimb_resolver, reimb_statusid, reimb_type_id, reimb_type);
+		
+		e.setReimb_amount(reimb_amount);
+		e.setReimb_submitted(reimb_submitted);
+		e.setReimb_resolved(reimb_resolved);
+		e.setReimb_description(reimb_description);
+		e.setReimb_receipt(reimb_receipt);
+		e.setReimb_author(reimb_author);
+		e.setReimb_resolver(reimb_resolver);
+		e.setReimb_statusid(reimb_statusid);
+		e.setReimb_type_id(reimb_type_id);
+		e.setReimb_type(reimb_type);
 		
 		
-		int targetId = ersServe.addReimbursement(e);
+		
+		
+		boolean targetId = ersServe.addReimbursement(e);
+		
+		
 
-		if (targetId != 0) {
+		if (targetId) {
 			PrintWriter pw = response.getWriter();
-			e.setReimb_id(targetId);
+			
 			log.info("New reimbursement: " + e);
 			String json = om.writeValueAsString(e);
 			pw.println(json);
@@ -299,7 +327,7 @@ public class RequestHelper {
 			
 			response.setContentType("application/json");
 			response.setStatus(200); // SUCCESSFUL!
-			log.info("User has successfully been created.");
+			log.info("User has successfully added a reimbursement.");
 		} else {
 			response.setContentType("application/json");
 			response.setStatus(204); // this means that the connection was successful but no user created!

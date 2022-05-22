@@ -20,7 +20,7 @@ public class Ers_ReimbursementServiceImpl implements Ers_ReimbursementService{
 	}
 
 	@Override
-	public int addReimbursement(Ers_Reimbursement ers) {
+	public boolean addReimbursement(Ers_Reimbursement ers) {
 		log.info("In service layer. Adding Reimbursement: " + ers);
 		return ersdao.insert(ers);
 	}

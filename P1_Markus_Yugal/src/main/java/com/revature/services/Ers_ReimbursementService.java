@@ -6,7 +6,7 @@ import com.revature.models.Ers_Reimbursement;
 
 public interface Ers_ReimbursementService {
 	
-	public int addReimbursement(Ers_Reimbursement ersReimb);
+	public boolean addReimbursement(Ers_Reimbursement ersReimb);
 	
 	public Ers_Reimbursement findReimbursementById(int id);
 	

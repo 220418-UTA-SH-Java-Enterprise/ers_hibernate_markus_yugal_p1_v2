@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -35,10 +33,10 @@ public class Ers_Reimbursement {
 	private String reimb_receipt;
 	
 	@Column(name="reimb_author")
-	private int reimb_author;
+	private String reimb_author;
 	
 	@Column(name="reimb_resolver")
-	private int reimb_resolver;
+	private String reimb_resolver;
 	
 	@Column(name="reimb_statusid")
 	private int reimb_statusid;
@@ -46,39 +44,16 @@ public class Ers_Reimbursement {
 	@Column(name="reimb_type_id")
 	private int reimb_type_id;
 	
-	@ManyToOne
-	@JoinColumn(name="reimb_Type_id", referencedColumnName = "reimb_typeid")
-	private Ers_reimbursement_Type reimbursementtype;
-	
-	@ManyToOne
-	@JoinColumn(name="reimb_Status_id", referencedColumnName = "reimb_statusid")
-	private Ers_reimbursement_Status reimbursementstatus;
-	
-	@ManyToOne
-	@JoinColumn(name="reimb_author", referencedColumnName = "ers_user_id")
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name="reimb_resolver", referencedColumnName = "ers_user_id")
-	private User user2;
+	@Column(name="reimb_type")
+	private String reimb_type;
 
 	public Ers_Reimbursement() {
 		super();
 	}
-	
-	
-
-	public Ers_Reimbursement(double reimb_amount, String reimb_description) {
-		super();
-		this.reimb_amount = reimb_amount;
-		this.reimb_description = reimb_description;
-	}
-
-
 
 	public Ers_Reimbursement(double reimb_amount, Timestamp reimb_submitted, Timestamp reimb_resolved,
-			String reimb_description, String reimb_receipt, int reimb_author, int reimb_resolver, int reimb_statusid,
-			int reimb_type_id, Ers_reimbursement_Type reimbursementtype, Ers_reimbursement_Status reimbursementstatus) {
+			String reimb_description, String reimb_receipt, String reimb_author, String reimb_resolver,
+			int reimb_statusid, int reimb_type_id, String reimb_type) {
 		super();
 		this.reimb_amount = reimb_amount;
 		this.reimb_submitted = reimb_submitted;
@@ -89,13 +64,12 @@ public class Ers_Reimbursement {
 		this.reimb_resolver = reimb_resolver;
 		this.reimb_statusid = reimb_statusid;
 		this.reimb_type_id = reimb_type_id;
-		this.reimbursementtype = reimbursementtype;
-		this.reimbursementstatus = reimbursementstatus;
+		this.reimb_type = reimb_type;
 	}
 
 	public Ers_Reimbursement(int reimb_id, double reimb_amount, Timestamp reimb_submitted, Timestamp reimb_resolved,
-			String reimb_description, String reimb_receipt, int reimb_author, int reimb_resolver, int reimb_statusid,
-			int reimb_type_id, Ers_reimbursement_Type reimbursementtype, Ers_reimbursement_Status reimbursementstatus) {
+			String reimb_description, String reimb_receipt, String reimb_author, String reimb_resolver,
+			int reimb_statusid, int reimb_type_id, String reimb_type) {
 		super();
 		this.reimb_id = reimb_id;
 		this.reimb_amount = reimb_amount;
@@ -107,33 +81,7 @@ public class Ers_Reimbursement {
 		this.reimb_resolver = reimb_resolver;
 		this.reimb_statusid = reimb_statusid;
 		this.reimb_type_id = reimb_type_id;
-		this.reimbursementtype = reimbursementtype;
-		this.reimbursementstatus = reimbursementstatus;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(reimb_amount, reimb_author, reimb_description, reimb_id, reimb_receipt, reimb_resolved,
-				reimb_resolver, reimb_statusid, reimb_submitted, reimb_type_id, reimbursementstatus, reimbursementtype);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Ers_Reimbursement other = (Ers_Reimbursement) obj;
-		return Double.doubleToLongBits(reimb_amount) == Double.doubleToLongBits(other.reimb_amount)
-				&& reimb_author == other.reimb_author && Objects.equals(reimb_description, other.reimb_description)
-				&& reimb_id == other.reimb_id && Objects.equals(reimb_receipt, other.reimb_receipt)
-				&& Objects.equals(reimb_resolved, other.reimb_resolved) && reimb_resolver == other.reimb_resolver
-				&& reimb_statusid == other.reimb_statusid && Objects.equals(reimb_submitted, other.reimb_submitted)
-				&& reimb_type_id == other.reimb_type_id
-				&& Objects.equals(reimbursementstatus, other.reimbursementstatus)
-				&& Objects.equals(reimbursementtype, other.reimbursementtype);
+		this.reimb_type = reimb_type;
 	}
 
 	public int getReimb_id() {
@@ -184,19 +132,19 @@ public class Ers_Reimbursement {
 		this.reimb_receipt = reimb_receipt;
 	}
 
-	public int getReimb_author() {
+	public String getReimb_author() {
 		return reimb_author;
 	}
 
-	public void setReimb_author(int reimb_author) {
+	public void setReimb_author(String reimb_author) {
 		this.reimb_author = reimb_author;
 	}
 
-	public int getReimb_resolver() {
+	public String getReimb_resolver() {
 		return reimb_resolver;
 	}
 
-	public void setReimb_resolver(int reimb_resolver) {
+	public void setReimb_resolver(String reimb_resolver) {
 		this.reimb_resolver = reimb_resolver;
 	}
 
@@ -216,20 +164,12 @@ public class Ers_Reimbursement {
 		this.reimb_type_id = reimb_type_id;
 	}
 
-	public Ers_reimbursement_Type getReimbursementtype() {
-		return reimbursementtype;
+	public String getReimb_type() {
+		return reimb_type;
 	}
 
-	public void setReimbursementtype(Ers_reimbursement_Type reimbursementtype) {
-		this.reimbursementtype = reimbursementtype;
-	}
-
-	public Ers_reimbursement_Status getReimbursementstatus() {
-		return reimbursementstatus;
-	}
-
-	public void setReimbursementstatus(Ers_reimbursement_Status reimbursementstatus) {
-		this.reimbursementstatus = reimbursementstatus;
+	public void setReimb_type(String reimb_type) {
+		this.reimb_type = reimb_type;
 	}
 
 	@Override
@@ -238,10 +178,8 @@ public class Ers_Reimbursement {
 				+ reimb_submitted + ", reimb_resolved=" + reimb_resolved + ", reimb_description=" + reimb_description
 				+ ", reimb_receipt=" + reimb_receipt + ", reimb_author=" + reimb_author + ", reimb_resolver="
 				+ reimb_resolver + ", reimb_statusid=" + reimb_statusid + ", reimb_type_id=" + reimb_type_id
-				+ ", reimbursementtype=" + reimbursementtype + ", reimbursementstatus=" + reimbursementstatus + "]";
+				+ ", reimb_type=" + reimb_type + "]";
 	}
 
-	
-	
 	
 }

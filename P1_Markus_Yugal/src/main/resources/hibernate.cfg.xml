@@ -30,6 +30,7 @@
         <!-- Annotated entity classes -->
         <mapping class="com.revature.models.User"/>
         <mapping class="com.revature.models.UserRole"/>
+        <mapping class="com.revature.models.Ers_Reimbursement"/>
          
     </session-factory>
 </hibernate-configuration>

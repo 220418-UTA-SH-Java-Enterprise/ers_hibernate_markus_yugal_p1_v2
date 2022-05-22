@@ -6,7 +6,7 @@ import com.revature.models.Ers_Reimbursement;
 
 public interface Ers_ReimbursementDao {
 
-	public int insert(Ers_Reimbursement ers_reimbursement);
+	public boolean insert(Ers_Reimbursement ers_reimbursement);
 	
 	public Ers_Reimbursement selectById(int id);
 	
@@ -17,4 +17,6 @@ public interface Ers_ReimbursementDao {
 	public boolean update(Ers_Reimbursement user);
 	
 	public boolean delete(Ers_Reimbursement user);
+
+	int insert(String reimb_type);
 }
