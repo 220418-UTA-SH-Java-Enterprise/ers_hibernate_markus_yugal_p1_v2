@@ -25,11 +25,7 @@ public class Ers_ReimbursementServiceImpl implements Ers_ReimbursementService{
 		return ersdao.insert(ers);
 	}
 
-	@Override
-	public Ers_Reimbursement findReimbursementById(int id) {
-		System.out.println("In service layer. Finding reimbursement by id num: " + id);
-		return ersdao.selectById(id);
-	}
+
 
 	@Override
 	public List<Ers_Reimbursement> findAllReimbursements() {

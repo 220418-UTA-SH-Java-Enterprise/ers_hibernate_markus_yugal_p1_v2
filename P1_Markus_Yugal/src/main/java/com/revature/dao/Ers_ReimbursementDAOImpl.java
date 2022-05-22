@@ -1,22 +1,17 @@
 package com.revature.dao;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
+
 
 
 
 import com.revature.models.Ers_Reimbursement;
-import com.revature.models.Ers_reimbursement_Type;
-import com.revature.models.User;
-import com.revature.models.UserRole;
-import com.revature.models.Ers_reimbursement_Status;
 
 import com.revature.util.HibernateUtil;
 
@@ -24,17 +19,6 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 	
 	
 	private static Logger log = Logger.getLogger(Userdaoimpl.class);
-
-	public int insertType(String reimb_type, Session ses, Transaction tx) {
-		log.info("adding type to database. reimbursement type: " + reimb_type);
-		
-		int typeid = (int) ses.save(reimb_type);
-		
-		tx.commit();
-		
-		log.info("type has been saved as: " + typeid);
-		return typeid;
-	}
 	
 	//public String getReimTypeById(int id, Session ses) {
 		//log.info("get type by id. id: " + id);
@@ -46,6 +30,7 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 	
 	@Override
 	public boolean insert(Ers_Reimbursement ers) {
+		log.info("adding reimbursement to database. reimbursement info: " + ers);
 
 		System.out.println("New reimbursement info: " + ers);
 		Session ses = HibernateUtil.getSession();
@@ -64,7 +49,14 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 		String reimb_type = ers.getReimb_type();
 		
 		//ses.update(user);
-		String sql = "insert into Ers_Reimbursement (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_receipt, reimb_author, reimb_resolver, reimb_statusid, reimb_type_id, reimb_type) values (" + reimb_amount + "," + reimb_submitted + "," + reimb_resolved + "," + reimb_description + "," + reimb_receipt + "," + reimb_author + "," + reimb_resolver + "," + reimb_statusid + "," + reimb_type_id + "," + reimb_type + ")";
+		String sql = "insert into Ers_Reimbursement "
+				+ "(reimb_amount, reimb_submitted, reimb_resolved, "
+				+ "reimb_description, reimb_receipt, reimb_author, reimb_resolver, "
+				+ "reimb_statusid, reimb_type_id, reimb_type) values (" 
+				+ reimb_amount + "," + reimb_submitted + "," + reimb_resolved + "," 
+				+ reimb_description + "," + reimb_receipt + "," + reimb_author + "," 
+				+ reimb_resolver + "," + reimb_statusid + "," + reimb_type_id + "," + 
+				reimb_type + ")";
 		ses.createNativeQuery(sql, Ers_Reimbursement.class)
 		.setParameter(0, 0)
 		.setParameter(0, 0)
@@ -76,18 +68,6 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 		return true;
 		
 		
-	}
-
-	@Override
-	public Ers_Reimbursement selectById(int id) {
-		
-		System.out.println("searching user by id: " + id);
-		Session ses = HibernateUtil.getSession();
-		Ers_Reimbursement ers_reimbursement = (Ers_Reimbursement) ses.createNativeQuery("SELECT * FROM ers_users WHERE ers_user_id = " + id + "", Ers_Reimbursement.class).getSingleResult();
-		
-		System.out.println("Search complete! Found: " + ers_reimbursement);
-		
-		return ers_reimbursement;	
 	}
 
 
@@ -103,29 +83,7 @@ public class Ers_ReimbursementDAOImpl implements Ers_ReimbursementDao {
 		return reimbList;
 	}
 
-	@Override
-	public boolean update(Ers_Reimbursement user) {
-		
-		return false;
-	}
 
-	@Override
-	public boolean delete(Ers_Reimbursement user) {
-		
-		return false;
-	}
-
-	@Override
-	public Ers_Reimbursement selectByName(String name) {
-
-		return null;
-	}
-
-	@Override
-	public int insert(String reimb_type) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	
 }

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,6 +41,7 @@ import com.revature.services.Ers_ReimbursementServiceImpl;
  * This class will serve as the main driver for all requests coming from the FrontController!
  * NOTE: we will not need a main method as Tomcat will be running our app rather than the JVM.
  */
+
 public class RequestHelper {
 	private static UserService userv = new UserServiceimpl(new Userdaoimpl());
 	private static JwtService jwtService = new JwtService();
@@ -192,7 +195,8 @@ public class RequestHelper {
 			out.println(json);
 		}
 	}
-
+	
+	@Test
 	public static void processRegistration(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		log.info("inside of request helper...processRegistration...");
 		BufferedReader reader = request.getReader();
@@ -287,13 +291,13 @@ public class RequestHelper {
 		  String reimb_resolver = values.get(4);
 		  
 		  int reimb_statusid = Integer.parseInt(values.get(5));
-		  int reimb_type_id = Integer.parseInt(values.get(6));
+		  int reimb_type_id = Integer.parseInt(values.get(5));
 		  
 		    
 		  
 		  
 		  
-		 String reimb_type = values.get(6);
+		 String reimb_type = values.get(5);
 		  
 		  
 		

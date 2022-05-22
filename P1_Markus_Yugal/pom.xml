@@ -14,6 +14,12 @@
 		
 		<sonar.organization>220418-uta-sh-java-enterprise</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+		<junit.jupiter.version>5.8.1</junit.jupiter.version>
+		<junit.platform.version>1.8.1</junit.platform.version>
 	</properties>
 
 	<build>
@@ -67,6 +73,25 @@
 	</build>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- The javax.servlet dependency is an api that gives us classes and interfaces 
 			that describe and define the contracts between a servlet class and the runtime 
