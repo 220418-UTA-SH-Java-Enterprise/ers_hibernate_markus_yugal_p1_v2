@@ -291,13 +291,13 @@ public class RequestHelper {
 		  String reimb_resolver = values.get(4);
 		  
 		  int reimb_statusid = Integer.parseInt(values.get(5));
-		  int reimb_type_id = Integer.parseInt(values.get(5));
+		  int reimb_type_id = Integer.parseInt(values.get(6));
 		  
 		    
 		  
 		  
 		  
-		 String reimb_type = values.get(5);
+		 String reimb_type = values.get(7);
 		  
 		  
 		
