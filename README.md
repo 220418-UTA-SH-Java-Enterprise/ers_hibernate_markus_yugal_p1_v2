@@ -74,3 +74,7 @@ Additionally, your team will need to build a simple CRUD web application based o
 - [ ] Deployment of web application to AWS EC2 (use of AWS Elastic Beanstalk is permitted) 
 - [ ] Continuous integration pipelines that builds some main branch each project (the ORM and the web app, separately)
 - [ ] Passwords shall be encrypted in Java and securely stored in the database. 
+
+## Contributers
+- [ ] Markus Grier
+- [ ] Yugal Subedi
